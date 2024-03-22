@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com"> 
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <title>Weather App</title>
+</head>
+<body>
+<main class="wrapper">
+  <div id="js-disabled-message">
+    <noscript>
+      <p>Please enable JavaScript to use this application.</p>
+    </noscript>
+  </div>
+  <div class="hidden lds-ring"><div></div><div></div><div></div><div></div></div>
+  <section id="errorContainer">
+    <h1></h1>
+    <p></p>
+  </section>
+  <section id="weatherContainer">
+    <div class="flex parent-container">
+      <div class="flex flex-col">
+        <h1></h1>
+        <time datetime=""></time>
+        <div class="flex">
+          <img src="" alt="">
+          <div class="temp-container flex flex-col">
+            <span id="temp"></span>
+            <h2>Feels like</h2>
+            <p id="app-temp"></p>
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="flex flex-col">
+          <h2>High</h2>
+          <p id="high"></p>
+        </div>
+        <div class="flex flex-col">
+          <h2>Wind</h2>
+          <p id="wind"></p>
+        </div>
+        <div class="flex flex-col">
+          <h2>Sunrise</h2>
+          <p id="sunrise"></p>
+        </div>
+        <div class="flex flex-col">
+          <h2>Low</h2>
+          <p id="low"></p>
+        </div>
+        <div class="flex flex-col">
+          <h2>Rain</h2>
+          <p id="rain"></p>
+        </div>
+        <div class="flex flex-col">
+          <h2>Sunset</h2>
+          <p id="sunset"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="./scripts.js"></script>
+</body>
+</html>
