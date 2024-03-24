@@ -1,3 +1,7 @@
+// NOTE TO SELF march 24
+// next steps here are to pass city and region to the displayWeather function. 
+// coordinates and dates are being passed correctly to the search params in getTheWeather function 
+
 // define weatherApp object
 const weatherApp = {};
 // define utilities object.
@@ -113,7 +117,7 @@ weatherApp.getTheWeather = async function() {
   try {
     await weatherApp.geolocateUser(); 
     await weatherApp.getDates();
-    
+
     const weatherURLObj = new URL(weatherApp.weatherURL);
     weatherApp.searchParams = new URLSearchParams({
       "latitude": weatherApp.lat,
