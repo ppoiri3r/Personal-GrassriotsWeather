@@ -1,8 +1,13 @@
 // notes from work on monday, march 25th: 
-  // create a front end elements object.
-  // we map over this object in the displayWeather function to:
+  // created a front end elements object.
+  // mapped over this object in the displayWeather function to:
     // 1. query select the elements by their id's
     // 2. display their inner text. 
+  // hide loading animation function was being called in the get the weather function twice:
+    // if the fetch was successful
+    // if the fetch was unsuccesful
+  // modified the get the weather function slightly to only call it once
+  // fires after awaiting the geolocate user and get dates functions 
 
 
 // possible next steps/brainstorm on how to make this better:
@@ -19,16 +24,12 @@
     // daily": Object.keys(weatherApp.dailyDataPoints)
 
 
-// define weatherApp object
 const weatherApp = {};
-// define utilities object.
-// this object will house utility functions/helper functions. 
 const utilities = {};
 
 weatherApp.weatherURL = 'https://api.open-meteo.com/v1/forecast';
 weatherApp.geolocationURL = 'https://services.grassriots.io/';
 
-// function to hide javascript disabled message
 utilities.hideJsDisabledMessage = function() {
   const jsDisabledMessage = document.querySelector('#js-disabled-message');
   jsDisabledMessage.classList.add('hidden');
@@ -118,7 +119,7 @@ weatherApp.getFrontEndElements = function(weatherData) {
     },
     "location": {
       "id": "location",
-      "innerText": `${weatherApp.city}${weatherApp.region}`
+      "innerText": `${weatherApp.city}` + ', ' + `${weatherApp.region}`
     },
     "date": {
       "id": "date",
@@ -164,6 +165,7 @@ weatherApp.getTheWeather = async function() {
   try {
     await weatherApp.geolocateUser(); 
     await weatherApp.getDates();
+    utilities.hideLoadingAnimation();
 
     const weatherURLObj = new URL(weatherApp.weatherURL);
     weatherApp.searchParams = new URLSearchParams({
@@ -188,11 +190,9 @@ weatherApp.getTheWeather = async function() {
     }
     const jsonResponse = await response.json();
     if (!jsonResponse) {
-      throw new Error('Invalid data received from urlObj');
+      throw new Error('Invalid data received from weatherURLObj');
     } 
     // console.log('Weather data:', jsonResponse);
-    utilities.hideLoadingAnimation(); 
-    // this set timeout will fade the weather smoothly once the loading spinner is done fading out.
     setTimeout(() => {
       weatherApp.displayWeather(jsonResponse);
     }, 500);
@@ -200,7 +200,6 @@ weatherApp.getTheWeather = async function() {
   } catch (error) {
     // this code will execute should the network response fail or data be invalid. 
     console.error('Error fetching weather data:', error);
-    utilities.hideLoadingAnimation(); 
     weatherApp.hideWeatherContainer();
     weatherApp.displayErrorMessage();
   }
